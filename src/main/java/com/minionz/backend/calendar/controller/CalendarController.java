@@ -2,8 +2,6 @@ package com.minionz.backend.calendar.controller;
 
 import com.minionz.backend.calendar.controller.dto.CalendarInfoRequestDto;
 import com.minionz.backend.calendar.controller.dto.CalendarInfoResponseDto;
-import com.minionz.backend.calendar.controller.dto.SumFoodRequestDto;
-import com.minionz.backend.calendar.controller.dto.SumFoodResponseDto;
 import com.minionz.backend.calendar.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

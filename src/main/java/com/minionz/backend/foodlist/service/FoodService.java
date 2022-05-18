@@ -46,7 +46,7 @@ public class FoodService {
             foodJi += foodList.getFoodJi()*food_person[i];
             foodKcal += foodList.getFoodKcal()*food_person[i];
         }
-        SumFoodRequestDto sumFoodRequestDto = new SumFoodRequestDto(foodTan,foodDan,foodJi,foodKcal,foodRequestDto.getFoodtime(),foodRequestDto.getFooddate());
+        SumFoodRequestDto sumFoodRequestDto = new SumFoodRequestDto(foodTan,foodDan,foodJi,foodKcal,foodRequestDto.getFoodtime());
         Calendar calendar = sumFoodRequestDto.toCalendar();
         calendarRepository.save(calendar);
         return new FoodTotalResponseDto(foodKcal,foodTan,foodDan,foodJi, foodRequestDto.getFoodtime());
