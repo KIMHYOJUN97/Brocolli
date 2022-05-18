@@ -1,5 +1,7 @@
 package com.minionz.backend.calendar.service;
 
+import com.minionz.backend.calendar.controller.dto.CalendarInfoRequestDto;
+import com.minionz.backend.calendar.controller.dto.CalendarInfoResponseDto;
 import com.minionz.backend.calendar.controller.dto.SumFoodRequestDto;
 import com.minionz.backend.calendar.controller.dto.SumFoodResponseDto;
 import com.minionz.backend.calendar.domain.Calendar;
@@ -17,22 +19,22 @@ import java.util.List;
 public class CalendarService {
     private final CalendarRepository calendarRepository;
 
-    public List<SumFoodResponseDto> calendar_info(Long id, SumFoodRequestDto sumFoodRequestDto){
-        SumFoodResponseDto morning = null;
-        SumFoodResponseDto lunch = null;
-        SumFoodResponseDto dinner = null;
-        List<Calendar> calendar = calendarRepository.findByUseridAndFoodDate(id, sumFoodRequestDto.getFoodDate());
+    public List<CalendarInfoResponseDto> calendar_info(Long id, CalendarInfoRequestDto calendarInfoRequestDto){
+        CalendarInfoResponseDto morning = null;
+        CalendarInfoResponseDto lunch = null;
+        CalendarInfoResponseDto dinner = null;
+        List<Calendar> calendar = calendarRepository.findByUseridAndFoodDate(id, calendarInfoRequestDto.getFoodDate());
 
         for(Calendar c : calendar){
             if(c.getFoodTime()== "아침")
-                morning = new SumFoodResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
+                morning = new CalendarInfoResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
             if(c.getFoodTime()== "점심")
-                lunch = new SumFoodResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
+                lunch = new CalendarInfoResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
             if(c.getFoodTime()== "저녁")
-                dinner = new SumFoodResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
+                dinner = new CalendarInfoResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
         }
 
-        List<SumFoodResponseDto> result = Arrays.asList(morning, lunch, dinner);
+        List<CalendarInfoResponseDto> result = Arrays.asList(morning, lunch, dinner);
         return result;
     }
 }

@@ -1,5 +1,7 @@
 package com.minionz.backend.calendar.controller;
 
+import com.minionz.backend.calendar.controller.dto.CalendarInfoRequestDto;
+import com.minionz.backend.calendar.controller.dto.CalendarInfoResponseDto;
 import com.minionz.backend.calendar.controller.dto.SumFoodRequestDto;
 import com.minionz.backend.calendar.controller.dto.SumFoodResponseDto;
 import com.minionz.backend.calendar.service.CalendarService;
@@ -20,10 +22,10 @@ public class CalendarController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<SumFoodResponseDto> calendarinfo(@PathVariable Long id,@RequestBody SumFoodRequestDto sumFoodRequestDto){
+    public List<CalendarInfoResponseDto> calendarinfo(@PathVariable Long id, @RequestBody CalendarInfoRequestDto calendarInfoRequestDto){
 
         log.info(CALENDAR_INFO_SEARCH_SUCCESS);
-        return calendarService.calendar_info(id, sumFoodRequestDto);
+        return calendarService.calendar_info(id, calendarInfoRequestDto);
 
     }
 }
