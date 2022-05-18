@@ -21,7 +21,7 @@ public class CalendarService {
         CalendarInfoResponseDto morning = null;
         CalendarInfoResponseDto lunch = null;
         CalendarInfoResponseDto dinner = null;
-        List<Calendar> calendar = calendarRepository.findByUseridAndFoodDate(id, calendarInfoRequestDto.getFoodDate());
+        List<Calendar> calendar = calendarRepository.findAllByUseridAndFoodDate(id, calendarInfoRequestDto.getFoodDate());
 
         for(Calendar c : calendar){
             if(c.getFoodTime()== "아침")
