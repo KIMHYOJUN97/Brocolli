@@ -2,6 +2,7 @@ package com.minionz.backend.calendar.domain;
 
 import com.minionz.backend.common.domain.BaseEntity;
 import com.minionz.backend.foodlist.domain.FoodList;
+import com.minionz.backend.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,10 @@ import java.util.List;
 })
 @Entity
 public class Calendar extends BaseEntity {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+
     @Column
     private double sumFoodKcal;
 
@@ -35,7 +40,7 @@ public class Calendar extends BaseEntity {
     private String foodDate;
 
     @Builder
-    public Calendar(Long id, double sumFoodKcal, double sumFoodTan, double sumFoodDan, double sumFoodJi,String foodTime,String foodDate) {
+    public Calendar(Long id, double sumFoodKcal, double sumFoodTan, double sumFoodDan, double sumFoodJi,String foodTime,String foodDate,User user) {
         super(id);
         this.sumFoodKcal = sumFoodKcal;
         this.sumFoodTan = sumFoodTan;
@@ -43,5 +48,6 @@ public class Calendar extends BaseEntity {
         this.sumFoodJi = sumFoodJi;
         this.foodTime =foodTime;
         this.foodDate=foodDate;
+        this.user = user;
     }
 }

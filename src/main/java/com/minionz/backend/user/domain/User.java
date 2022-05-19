@@ -1,8 +1,11 @@
 package com.minionz.backend.user.domain;
 
+import com.minionz.backend.calendar.domain.Calendar;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -14,6 +17,9 @@ import javax.persistence.*;
 })
 @Entity
 public class User extends UserBaseEntity {
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Calendar> calendarList = new ArrayList<>();
 
     @Column(nullable = false)
     private String age;

@@ -9,8 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CalendarInfoRequestDto {
     private String foodDate;
+    private Long userid;
 
-    public CalendarInfoRequestDto(String foodDate) {
+    public CalendarInfoRequestDto(String foodDate, Long userid) {
         this.foodDate = foodDate;
+        this.userid = userid;
     }
 }

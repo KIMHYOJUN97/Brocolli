@@ -13,17 +13,17 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("api/v1/calendar")
+@RequestMapping("api/v1")
 public class CalendarController {
     private static final String CALENDAR_INFO_SEARCH_SUCCESS="calendar info search success!";
     private final CalendarService calendarService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/calendar")
     @ResponseStatus(HttpStatus.OK)
-    public List<CalendarInfoResponseDto> calendarinfo(@PathVariable Long id, @RequestBody CalendarInfoRequestDto calendarInfoRequestDto){
+    public List<CalendarInfoResponseDto> calendarinfo(@RequestBody CalendarInfoRequestDto calendarInfoRequestDto){
 
         log.info(CALENDAR_INFO_SEARCH_SUCCESS);
-        return calendarService.calendar_info(id, calendarInfoRequestDto);
+        return calendarService.calendar_info(calendarInfoRequestDto.getUserid(), calendarInfoRequestDto);
 
     }
 }

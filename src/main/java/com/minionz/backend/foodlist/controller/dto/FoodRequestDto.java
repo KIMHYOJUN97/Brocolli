@@ -23,9 +23,9 @@ public class FoodRequestDto {
     private int foodperson5;
     private String foodtime;
     private String fooddate;
+    private Long userid;
 
-    public FoodRequestDto(String food_Name1, String food_Name2, String food_Name3, String food_Name4, String food_Name5,
-                          int foodperson1, int foodperson2, int foodperson3, int foodperson4, int foodperson5,String foodtime,String fooddate) {
+    public FoodRequestDto(String food_Name1, String food_Name2, String food_Name3, String food_Name4, String food_Name5, int foodperson1, int foodperson2, int foodperson3, int foodperson4, int foodperson5, String foodtime, String fooddate, Long userid) {
         this.food_Name1 = food_Name1;
         this.food_Name2 = food_Name2;
         this.food_Name3 = food_Name3;
@@ -38,14 +38,6 @@ public class FoodRequestDto {
         this.foodperson5 = foodperson5;
         this.foodtime = foodtime;
         this.fooddate = fooddate;
+        this.userid = userid;
     }
-    //    public Food toFood(){
-//        return Food.builder()
-//                .food_Name1(this.food_Name1)
-//                .food_Name2(this.food_Name2)
-//                .food_Name3(this.food_Name3)
-//                .food_Name4(this.food_Name4)
-//                .food_Name5(this.food_Name5)
-//                .build();
-//    }
 }

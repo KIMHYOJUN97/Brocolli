@@ -1,6 +1,7 @@
 package com.minionz.backend.calendar.controller.dto;
 
 import com.minionz.backend.calendar.domain.Calendar;
+import com.minionz.backend.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,13 +26,14 @@ public class SumFoodRequestDto {
         this.foodTime =foodTime;
     }
 
-    public Calendar toCalendar() {
+    public Calendar toCalendar(User user) {
         return Calendar.builder()
                 .sumFoodDan(this.sumFoodDan)
                 .sumFoodJi(this.sumFoodJi)
                 .sumFoodKcal(this.sumFoodKcal)
                 .sumFoodTan(this.sumFoodTan)
                 .foodTime(this.foodTime)
+                .user(user)
                 .build();
     }
 }

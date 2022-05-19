@@ -10,6 +10,8 @@ import com.minionz.backend.foodlist.domain.Food;
 import com.minionz.backend.foodlist.domain.FoodList;
 import com.minionz.backend.foodlist.domain.FoodListRepository;
 import com.minionz.backend.foodlist.domain.FoodRepository;
+import com.minionz.backend.user.domain.User;
+import com.minionz.backend.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,10 +24,12 @@ import java.util.stream.Collectors;
 @Service
 public class FoodService {
     private static final String Food_Find_Fail_MESSAGE = "음식 찾기 실패";
+    private static final String NO_USER_ERROR_MESSAGE = "해당 유저가 존재하지 않습니다.";
     private static final String Food_Save_SUCCESS_MESSAGE = "음식 저장 성공";
     private final FoodRepository foodRepository;
     private final FoodListRepository foodListRepository;
     private final CalendarRepository calendarRepository;
+    private final UserRepository userRepository;
 
     public FoodTotalResponseDto myfind(FoodRequestDto foodRequestDto) {
         String[] food_name = {foodRequestDto.getFood_Name1(), foodRequestDto.getFood_Name2(), foodRequestDto.getFood_Name3(), foodRequestDto.getFood_Name4(), foodRequestDto.getFood_Name5()};
@@ -34,6 +38,8 @@ public class FoodService {
         double foodDan = 0;
         double foodJi = 0;
         double foodKcal=0;
+        User user = userRepository.findById(foodRequestDto.getUserid())
+                .orElseThrow(() -> new NotFoundException(NO_USER_ERROR_MESSAGE));;
         FoodList foodList = null;
         for (int i = 0; i < 5; i++) {
             if (Objects.equals(food_name[i], "")){
@@ -47,7 +53,7 @@ public class FoodService {
             foodKcal += foodList.getFoodKcal()*food_person[i];
         }
         SumFoodRequestDto sumFoodRequestDto = new SumFoodRequestDto(foodTan,foodDan,foodJi,foodKcal,foodRequestDto.getFoodtime());
-        Calendar calendar = sumFoodRequestDto.toCalendar();
+        Calendar calendar = sumFoodRequestDto.toCalendar(user);
         calendarRepository.save(calendar);
         return new FoodTotalResponseDto(foodKcal,foodTan,foodDan,foodJi, foodRequestDto.getFoodtime());
     }
