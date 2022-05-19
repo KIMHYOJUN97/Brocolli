@@ -31,11 +31,11 @@ public class CalendarService {
         List<Calendar> calendar = calendarRepository.findAllByUserIdAndFoodDate(user.getId(), calendarInfoRequestDto.getFoodDate());
 
         for(Calendar c : calendar){
-            if(c.getFoodTime()== "아침")
+            if(c.getFoodTime().equals("아침") )
                 morning = new CalendarInfoResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
-            if(c.getFoodTime()== "점심")
+            if(c.getFoodTime().equals("점심") )
                 lunch = new CalendarInfoResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
-            if(c.getFoodTime()== "저녁")
+            if(c.getFoodTime().equals("저녁"))
                 dinner = new CalendarInfoResponseDto(c.getSumFoodKcal(), c.getSumFoodTan(), c.getSumFoodDan(), c.getSumFoodJi(), c.getFoodTime());
         }
 
