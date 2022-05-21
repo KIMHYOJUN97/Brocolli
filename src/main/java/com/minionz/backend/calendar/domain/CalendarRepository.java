@@ -15,5 +15,5 @@ public interface CalendarRepository extends JpaRepository<Calendar,Long> {
 //    @Query("select c from Calendar c where c.user = :user_id and c.foodDate = :food_date")
 //    List<Calendar> findAllByUserIdAndFoodDate(@Param("user_id") Long user_id,@Param("food_date") String food_date);
     List<Calendar> findAllByUserIdAndFoodDate(Long user_id,String food_date);
-    Optional<Calendar> findByUserIdAndFoodTime(Long user_id, String food_time);
+    Optional<Calendar> findByUserIdAndFoodTimeAndFoodDate(Long user_id, String food_time,String food_date);
 }

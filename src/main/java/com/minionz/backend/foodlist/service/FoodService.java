@@ -54,8 +54,8 @@ public class FoodService {
             foodKcal += foodList.getFoodKcal()*food_person[i];
         }
         FoodTotalResponseDto result = new FoodTotalResponseDto(foodKcal,foodTan,foodDan,foodJi, foodRequestDto.getFoodtime());
-        Calendar dup_check = calendarRepository.findByUserIdAndFoodTime(foodRequestDto.getUserid(),foodRequestDto.getFoodtime())
-                .orElseThrow(() -> new NotFoundException(no_calendar_message));
+        Calendar dup_check = calendarRepository.findByUserIdAndFoodTimeAndFoodDate(foodRequestDto.getUserid(),foodRequestDto.getFoodtime(),foodRequestDto.getFooddate())
+                .orElse(null);
         if(dup_check != null){//중복이 존재.
             foodKcal += dup_check.getSumFoodKcal();
             foodTan += dup_check.getSumFoodTan();
