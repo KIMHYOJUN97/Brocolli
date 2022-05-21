@@ -16,14 +16,16 @@ public class SumFoodRequestDto {
     private double sumFoodDan;
     private double sumFoodJi;
     private String foodTime;
+    private String foodDate;
 
     @Builder
-    public SumFoodRequestDto(double sumFoodKcal, double sumFoodTan, double sumFoodDan, double sumFoodJi,String foodTime) {
+    public SumFoodRequestDto(double sumFoodKcal, double sumFoodTan, double sumFoodDan, double sumFoodJi,String foodTime,String foodDate) {
         this.sumFoodKcal = sumFoodKcal;
         this.sumFoodTan = sumFoodTan;
         this.sumFoodDan = sumFoodDan;
         this.sumFoodJi = sumFoodJi;
         this.foodTime =foodTime;
+        this.foodDate = foodDate;
     }
 
     public Calendar toCalendar(User user) {
@@ -33,6 +35,7 @@ public class SumFoodRequestDto {
                 .sumFoodKcal(this.sumFoodKcal)
                 .sumFoodTan(this.sumFoodTan)
                 .foodTime(this.foodTime)
+                .foodDate(this.foodDate)
                 .user(user)
                 .build();
     }

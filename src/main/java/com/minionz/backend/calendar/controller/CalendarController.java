@@ -1,6 +1,5 @@
 package com.minionz.backend.calendar.controller;
 
-import com.minionz.backend.calendar.controller.dto.CalendarInfoRequestDto;
 import com.minionz.backend.calendar.controller.dto.CalendarInfoResponseDto;
 import com.minionz.backend.calendar.service.CalendarService;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +17,12 @@ public class CalendarController {
     private static final String CALENDAR_INFO_SEARCH_SUCCESS="calendar info search success!";
     private final CalendarService calendarService;
 
-    @GetMapping("/calendar")
+    @GetMapping("/calendar/{id}/{date}")
     @ResponseStatus(HttpStatus.OK)
-    public List<CalendarInfoResponseDto> calendarinfo(@RequestBody CalendarInfoRequestDto calendarInfoRequestDto){
+    public List<CalendarInfoResponseDto> calendarinfo(@PathVariable Long id,@PathVariable String date){
 
         log.info(CALENDAR_INFO_SEARCH_SUCCESS);
-        return calendarService.calendar_info(calendarInfoRequestDto.getUserid(), calendarInfoRequestDto);
+        return calendarService.calendar_info(id, date);
 
     }
 }
