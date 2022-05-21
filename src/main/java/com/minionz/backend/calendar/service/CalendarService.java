@@ -3,6 +3,8 @@ package com.minionz.backend.calendar.service;
 import com.minionz.backend.calendar.controller.dto.CalendarInfoResponseDto;
 import com.minionz.backend.calendar.domain.Calendar;
 import com.minionz.backend.calendar.domain.CalendarRepository;
+import com.minionz.backend.common.exception.NotFoundException;
+import com.minionz.backend.user.domain.User;
 import com.minionz.backend.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +22,11 @@ public class CalendarService {
     private static final String usernotfoundmessage = "user isn`t haven";
 
     public List<CalendarInfoResponseDto> calendar_info(Long id, String date){
-        CalendarInfoResponseDto morning = null;
-        CalendarInfoResponseDto lunch = null;
-        CalendarInfoResponseDto dinner = null;
-//        User user = userRepository.findById(id)
-//                .orElseThrow(() -> new NotFoundException(usernotfoundmessage));;
+        CalendarInfoResponseDto morning = new CalendarInfoResponseDto();
+        CalendarInfoResponseDto lunch = new CalendarInfoResponseDto();
+        CalendarInfoResponseDto dinner = new CalendarInfoResponseDto();
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(usernotfoundmessage));;
         List<Calendar> calendar = calendarRepository.findAllByUserIdAndFoodDate(id, date);
 
         for(Calendar c : calendar){

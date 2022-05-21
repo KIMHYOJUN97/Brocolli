@@ -26,6 +26,7 @@ public class FoodService {
     private static final String Food_Find_Fail_MESSAGE = "음식 찾기 실패";
     private static final String NO_USER_ERROR_MESSAGE = "해당 유저가 존재하지 않습니다.";
     private static final String Food_Save_SUCCESS_MESSAGE = "음식 저장 성공";
+    private static final String no_calendar_message = "해당 캘린더가 존재하지 않습니다.";
     private final FoodRepository foodRepository;
     private final FoodListRepository foodListRepository;
     private final CalendarRepository calendarRepository;
@@ -52,10 +53,27 @@ public class FoodService {
             foodJi += foodList.getFoodJi()*food_person[i];
             foodKcal += foodList.getFoodKcal()*food_person[i];
         }
-        SumFoodRequestDto sumFoodRequestDto = new SumFoodRequestDto(foodTan,foodDan,foodJi,foodKcal,foodRequestDto.getFoodtime(),foodRequestDto.getFooddate());
-        Calendar calendar = sumFoodRequestDto.toCalendar(user);
-        calendarRepository.save(calendar);
-        return new FoodTotalResponseDto(foodKcal,foodTan,foodDan,foodJi, foodRequestDto.getFoodtime());
+        FoodTotalResponseDto result = new FoodTotalResponseDto(foodKcal,foodTan,foodDan,foodJi, foodRequestDto.getFoodtime());
+        Calendar dup_check = calendarRepository.findByUserIdAndFoodTime(foodRequestDto.getUserid(),foodRequestDto.getFoodtime())
+                .orElseThrow(() -> new NotFoundException(no_calendar_message));
+        if(dup_check != null){//중복이 존재.
+            foodKcal += dup_check.getSumFoodKcal();
+            foodTan += dup_check.getSumFoodTan();
+            foodDan += dup_check.getSumFoodDan();
+            foodJi += dup_check.getSumFoodJi();
+
+            dup_check.setSumFoodKcal(foodKcal);
+            dup_check.setSumFoodTan(foodTan);
+            dup_check.setSumFoodDan(foodDan);
+            dup_check.setSumFoodJi(foodJi);
+            calendarRepository.save(dup_check);
+        }
+        else {
+            SumFoodRequestDto sumFoodRequestDto = new SumFoodRequestDto(foodKcal, foodTan, foodDan, foodJi, foodRequestDto.getFoodtime(), foodRequestDto.getFooddate());
+            Calendar calendar = sumFoodRequestDto.toCalendar(user);
+            calendarRepository.save(calendar);
+        }
+        return result;
     }
 
 //    public List<FoodResponseDto> show(Long id) {
