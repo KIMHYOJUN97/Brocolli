@@ -15,6 +15,7 @@ import com.minionz.backend.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class FoodService {
     private final CalendarRepository calendarRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public FoodTotalResponseDto myfind(FoodRequestDto foodRequestDto) {
         String[] food_name = {foodRequestDto.getFood_Name1(), foodRequestDto.getFood_Name2(), foodRequestDto.getFood_Name3(), foodRequestDto.getFood_Name4(), foodRequestDto.getFood_Name5()};
         int[] food_person ={foodRequestDto.getFoodperson1(),foodRequestDto.getFoodperson2(),foodRequestDto.getFoodperson3(),foodRequestDto.getFoodperson4(),foodRequestDto.getFoodperson5()};

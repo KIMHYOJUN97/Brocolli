@@ -9,6 +9,7 @@ import com.minionz.backend.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +22,7 @@ public class CalendarService {
     private final UserRepository userRepository;
     private static final String usernotfoundmessage = "user isn`t haven";
 
+    @Transactional
     public List<CalendarInfoResponseDto> calendar_info(Long id, String date){
         CalendarInfoResponseDto morning = new CalendarInfoResponseDto();
         CalendarInfoResponseDto lunch = new CalendarInfoResponseDto();
